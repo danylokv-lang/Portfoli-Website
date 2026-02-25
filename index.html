@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Danylo | Cosmic Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Danylo — junior developer building clean, fast, cosmic-inspired UIs. Open to work.">
+    <meta property="og:title" content="Danylo | Cosmic Portfolio">
+    <meta property="og:description" content="Junior developer — web and desktop experiences with precision and imagination. Open to work.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0c0d13">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        :root {
+            --bg-primary: #05060a;
+            --bg-secondary: #0c0d13;
+            --accent: #ffffff;
+            --muted: #9fa5b5;
+            --highlight: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+            background: radial-gradient(circle at top, #10121c, var(--bg-primary));
+            color: var(--accent);
+            min-height: 100vh;
+            overflow-x: hidden;
+            letter-spacing: 0.03em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background: rgba(5, 6, 10, 0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 14px 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 28px;
+            font-size: 0.9rem;
+        }
+
+        nav a {
+            position: relative;
+            padding-bottom: 4px;
+            opacity: 0.9;
+            transition: opacity 0.25s ease;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a:focus-visible { opacity: 1; }
+        nav a:hover::after,
+        nav a:focus-visible::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Enhanced button focus for accessibility */
+        .ghost-button:focus-visible,
+        .solid-button:focus-visible {
+            outline: 2px solid rgba(255,255,255,0.65);
+            outline-offset: 2px;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: min(18vh, 140px) 5vw;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding-top: calc(18vh + 60px);
+            padding-bottom: 18vh;
+        }
+
+        .hero-inner {
+            max-width: 760px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.8rem, 4vw, 4.5rem);
+            margin: 0 0 20px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            animation: heroGlow 7s ease-in-out infinite alternate;
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+            line-height: 1.15;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--muted);
+            margin: 0 auto 32px;
+            max-width: 640px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            animation: floatButtons 12s ease-in-out infinite;
+        }
+
+        .ghost-button,
+        .solid-button {
+            padding: 12px 26px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            position: relative;
+            isolation: isolate;
+        }
+
+        .ghost-button {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+        }
+
+        .ghost-button:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255,255,255,0.06);
+        }
+
+        .solid-button {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .solid-button:hover {
+            background: rgba(255, 255, 255, 0.85);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.32em;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            padding-right: 28px;
+            overflow: hidden;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -140%;
+            width: 140%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
+            opacity: 0.7;
+            animation: headingSweep 6.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            width: 140px;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), transparent);
+            animation: underlinePulse 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 36px;
+            align-items: start;
+        }
+
+        .card {
+            background: linear-gradient(155deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px;
+            border-radius: 18px;
+            box-shadow: 0 24px 54px rgba(0, 0, 0, 0.45);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            will-change: transform;
+        }
+
+        .card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 28px 60px rgba(0, 0, 0, 0.55);
+            border-color: rgba(255,255,255,0.14);
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            border-left: 1px dashed rgba(255, 255, 255, 0.25);
+            display: grid;
+            gap: 28px;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -41px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+            animation: beacon 3.5s ease-in-out infinite;
+        }
+
+        .timeline-item h3 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card h3 {
+            margin: 0 0 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 1rem;
+            position: relative;
+            animation: titlePulse 9s ease-in-out infinite;
+        }
+
+        .project-card p {
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+
+        .project-card a, .openwork-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card a::after {
+            content: "\2192";
+            transition: transform 0.3s ease;
+        }
+
+        .project-card a:hover {
+            opacity: 1;
+        }
+
+        .project-card a:hover::after {
+            transform: translateX(4px);
+        }
+
+
+        .mission-grid, .openwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        /* Details/accordion styling for My Story */
+        details.story {
+            background: linear-gradient(155deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 0;
+            box-shadow: 0 24px 54px rgba(0, 0, 0, 0.45);
+        }
+        details.story[open] { border-color: rgba(255,255,255,0.14); }
+        details.story > summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 20px 24px;
+            font-size: 1.2rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            position: relative;
+        }
+        details.story > summary::marker { display: none; }
+        details.story > summary::after {
+            content: "+";
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            opacity: 0.7;
+        }
+        details.story[open] > summary::after { content: "−"; }
+        .story-content {
+            padding: 0 24px 24px;
+            color: var(--muted);
+        }
+        .story-content h3 { margin: 18px 0 8px; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+        .story-content p { margin: 0 0 14px; line-height: 1.8; }
+
+        .stat {
+            font-size: 2.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        footer {
+            padding: 40px 5vw;
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(5, 6, 10, 0.85);
+            backdrop-filter: blur(6px);
+        }
+
+        .pulse-ring {
+            position: absolute;
+            inset: -40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.1;
+            }
+            50% {
+                transform: scale(1.15);
+                opacity: 0.35;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes headingSweep {
+            0% {
+                transform: translateX(0%);
+                opacity: 0;
+            }
+            30% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(140%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes underlinePulse {
+            0%, 100% {
+                transform: scaleX(0.9);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scaleX(1.04);
+                opacity: 0.55;
+            }
+        }
+
+        @keyframes driftNebula {
+            0% {
+                transform: scale(1) translate3d(0, 0, 0) rotate(0deg);
+            }
+            50% {
+                transform: scale(1.05) translate3d(-2%, -1%, 0) rotate(2deg);
+            }
+            100% {
+                transform: scale(1.08) translate3d(2%, 2%, 0) rotate(-1deg);
+            }
+        }
+
+        @keyframes gridSpin {
+            0% {
+                transform: rotate(0deg) scale(1.1);
+            }
+            100% {
+                transform: rotate(360deg) scale(1.1);
+            }
+        }
+
+        /* cometFlight removed */
+
+        @keyframes meteorFall {
+            0% {
+                opacity: 0;
+                transform: rotate(var(--meteor-rotation, 18deg)) translate3d(0, 0, 0);
+            }
+            15% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(var(--meteor-rotation, 18deg)) translate3d(var(--meteor-shift-x, 60vw), var(--meteor-shift-y, 75vh), 0);
+            }
+        }
+
+        @keyframes heroGlow {
+            0% {
+                text-shadow: 0 0 12px rgba(255, 255, 255, 0.16);
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                text-shadow: 0 0 22px rgba(255, 255, 255, 0.32);
+                transform: translateY(-4px) scale(1.01);
+            }
+            100% {
+                text-shadow: 0 0 14px rgba(255, 255, 255, 0.2);
+                transform: translateY(0px) scale(1);
+            }
+        }
+
+        @keyframes titlePulse {
+            0% {
+                letter-spacing: 0.12em;
+                opacity: 0.85;
+            }
+            50% {
+                letter-spacing: 0.18em;
+                opacity: 1;
+            }
+            100% {
+                letter-spacing: 0.12em;
+                opacity: 0.85;
+            }
+        }
+
+        @keyframes floatButtons {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+            50% {
+                transform: translateY(-6px) scale(1.01);
+            }
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+        }
+
+        @keyframes beacon {
+            0% {
+                box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+                transform: scale(0.95);
+            }
+            50% {
+                box-shadow: 0 0 16px rgba(255, 255, 255, 0.55);
+                transform: scale(1.1);
+            }
+            100% {
+                box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+                transform: scale(0.95);
+            }
+        }
+
+        /* badgeDrift removed */
+
+        #cosmic-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        #cosmic-background::before {
+            content: "";
+            position: absolute;
+            width: 180%;
+            height: 180%;
+            top: -40%;
+            left: -40%;
+            background:
+                radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.08), transparent 54%),
+                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.05), transparent 55%);
+            filter: blur(40px);
+            opacity: 0.45;
+            animation: driftNebula 32s ease-in-out infinite alternate;
+        }
+
+        #cosmic-background::after {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            background:
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 70px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 70px);
+            opacity: 0.08;
+            animation: gridSpin 60s linear infinite;
+        }
+
+
+        /* comet rtl after removed */
+
+        /* meteor styles removed */
+
+        #starfield {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: opacity 0.6s ease, filter 0.6s ease;
+        }
+
+        #intro-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            filter: blur(3px);
+        }
+
+        .intro-text {
+            font-size: clamp(2.2rem, 6vw, 5rem);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-rendering: geometricPrecision;
+            -webkit-font-smoothing: antialiased;
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Toast for copy feedback */
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.18);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease, transform .25s ease;
+            z-index: 1000;
+            backdrop-filter: blur(6px);
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Back to top button */
+        #backtotop {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #000;
+            background: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .25s ease, transform .25s ease;
+            z-index: 900;
+        }
+        #backtotop.show { opacity: 1; transform: translateY(0); }
+        #backtotop:focus-visible { outline: 2px solid rgba(255,255,255,0.65); outline-offset: 2px; }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+        }
+
+        /* Text Animations */
+        .glitch {
+            position: relative;
+            overflow: hidden;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0; top: 0;
+            width: 100%;
+            color: var(--accent);
+            mix-blend-mode: screen;
+            opacity: 0.12;
+            clip-path: inset(0 0 0 0);
+            animation: glitchShift 2.4s infinite ease-in-out;
+        }
+        .glitch::before { transform: translate(1px, -1px); filter: drop-shadow(0 0 6px #fff); }
+        .glitch::after { transform: translate(-1px, 1px); filter: drop-shadow(0 0 4px #aaa); animation-delay: 1.2s; }
+        @keyframes glitchShift {
+            0%, 92%, 100% { clip-path: inset(0 0 0 0); opacity: 0.08; }
+            10% { clip-path: inset(10% 0 0 0); opacity: 0.16; }
+            20% { clip-path: inset(0 0 65% 0); opacity: 0.22; }
+            30% { clip-path: inset(40% 0 0 0); opacity: 0.18; }
+            40% { clip-path: inset(0 0 30% 0); opacity: 0.12; }
+            50% { clip-path: inset(60% 0 0 0); opacity: 0.2; }
+            60% { clip-path: inset(0 0 10% 0); opacity: 0.14; }
+            70% { clip-path: inset(25% 0 25% 0); opacity: 0.18; }
+            80% { clip-path: inset(0 0 50% 0); opacity: 0.16; }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 45%, rgba(255,255,255,0) 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: shimmerSweep 2.8s ease-in-out infinite;
+        }
+        @keyframes shimmerSweep {
+            0% { background-position: -60% 0; }
+            50% { background-position: 60% 0; }
+            100% { background-position: 160% 0; }
+        }
+
+        /* Title: starlight flicker + subtle skew */
+        .starlight {
+            animation: starlightFlicker 5.5s ease-in-out infinite;
+            text-shadow: 0 0 12px rgba(255,255,255,0.22);
+            will-change: transform, text-shadow;
+        }
+        @keyframes starlightFlicker {
+            0%, 100% { transform: skewX(0deg) scale(1); text-shadow: 0 0 12px rgba(255,255,255,0.22); }
+            12% { transform: skewX(-0.6deg) scale(1.01); text-shadow: 0 0 16px rgba(255,255,255,0.28); }
+            24% { transform: skewX(0.5deg) scale(1.005); text-shadow: 0 0 22px rgba(255,255,255,0.35); }
+            38% { transform: skewX(-0.4deg) scale(1.01); text-shadow: 0 0 18px rgba(255,255,255,0.30); }
+            52% { transform: skewX(0.3deg) scale(1.008); text-shadow: 0 0 20px rgba(255,255,255,0.32); }
+            68% { transform: skewX(-0.3deg) scale(1.006); text-shadow: 0 0 16px rgba(255,255,255,0.28); }
+            84% { transform: skewX(0.2deg) scale(1.004); text-shadow: 0 0 14px rgba(255,255,255,0.26); }
+        }
+
+        /* Smooth readable text fade */
+        .softfade { opacity: 0; transform: translateY(10px); }
+        .softfade.visible { opacity: 1; transform: translateY(0); transition: opacity 700ms ease, transform 700ms ease; }
+
+        @media (max-width: 720px) {
+            nav {
+                display: none;
+            }
+
+            header {
+                justify-content: center;
+            }
+
+            .hero {
+                padding-top: calc(22vh + 40px);
+            }
+
+            .hero h1 {
+                letter-spacing: 0.08em;
+            }
+
+            .section-title {
+                letter-spacing: 0.18em;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="cosmic-background">
+        <canvas id="starfield"></canvas>
+    </div>
+
+    <div id="intro-overlay">
+        <span class="intro-text"></span>
+    </div>
+
+    <header>
+        <div class="logo">Danylo</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#trajectory">Trajectory</a>
+            <a href="#projects">Projects</a>
+            <a href="#mission">Mission</a>
+            <a href="#openwork">Open To Work</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <span class="pulse-ring"></span>
+                <h1 class="starlight" style="color:#ffffff">Cosmic Builder</h1>
+                <p id="about-intro" class="softfade">
+                    I am Danylo, <span id="age">15</span> years old, a curious creator exploring code across galaxies. Game jams sparked my journey, iOS apps sharpened my craft, and now I orbit web and desktop experiences with precision and imagination.
+                </p>
+                <div class="hero-actions">
+                    <a class="solid-button email-action" href="#">Email Me</a>
+                    <a class="ghost-button" href="#openwork">Open To Work</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="about" class="reveal-on-scroll">
+            <h2 class="section-title">Origin Story</h2>
+            <div class="about-grid">
+                <div class="card">
+                    <p>
+                        I have always been fascinated by computers and the way software can reshape experiences. After hundreds of hours in Unity crafting indie game ideas, I shifted my focus to iOS tools that streamline how people learn. Today my curiosity pulls me toward polished web and desktop applications that feel fast, thoughtful, and future ready.
+                    </p>
+                </div>
+                <div class="card">
+                    <p>
+                        I am currently studying development at Wiss, a Swiss technology school, and jumping into hackathons whenever the countdown begins. These rapid missions challenge me to merge design, architecture, and code into solutions that survive real-world gravity.
+                    </p>
+                </div>
+                <div class="card">
+                    <p>
+                        Beyond the keyboard I gather inspiration from sci-fi art, space documentaries, and collaborative maker communities. Building inside these cosmic vibes keeps me focused on clarity, empathy, and engineering discipline.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="trajectory" class="reveal-on-scroll">
+            <h2 class="section-title">Flight Trajectory</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>Game Jam Explorer</h3>
+                    <p>
+                        Logged countless hours inside Unity experimenting with gameplay, storytelling, and collaboration while shipping rapid prototypes during competitions.
+                    </p>
+                </div>
+                <div class="timeline-item">
+                    <h3>iOS Toolkit Engineer</h3>
+                    <p>
+                        Built mobile utilities to help peers practice programming on the go, focusing on smooth onboarding and delightful micro-interactions.
+                    </p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Web and Desktop Voyager</h3>
+                    <p>
+                        Designing resilient interfaces and reliable systems that adapt across devices, with extra attention on accessibility and clarity.
+                    </p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Hackathon Strategist</h3>
+                    <p>
+                        Participating in hackathons to push ideas from concept to demo in record time while studying software engineering at Wiss in Switzerland.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal-on-scroll">
+            <h2 class="section-title">Active Missions</h2>
+            <div class="projects-grid">
+                <div class="card project-card">
+                    <h3>Portfolio Website</h3>
+                    <p>Personal developer portfolio showcasing projects and skills.</p>
+                    <a href="https://danylokv.pages.dev" target="_blank" rel="noopener">View Portfolio</a>
+                </div>
+                <div class="card project-card">
+                    <h3>Academy Coding</h3>
+                    <p>Educational website focused on coding-related content.</p>
+                    <a href="https://academycode.live" target="_blank" rel="noopener">Launch Site</a>
+                </div>
+                <div class="card project-card">
+                    <h3>UniMatch</h3>
+                    <p>Hackathon project developed under time constraints.</p>
+                    <a href="https://uni-match.pages.dev" target="_blank" rel="noopener">View Project</a>
+                </div>
+                <div class="card project-card">
+                    <h3>Death Escape</h3>
+                    <p>2D game developed during a game jam (Unity).</p>
+                    <a href="https://wayofblood.itch.io/death-escape" target="_blank" rel="noopener">Play on Itch.io</a>
+                </div>
+                <div class="card project-card">
+                    <h3>Silent Tasks (iOS)</h3>
+                    <p>Minimalist task management app focused on clarity and focus.</p>
+                    <a href="https://apps.apple.com/us/app/silent-tasks/id6757217559" target="_blank" rel="noopener">View on App Store</a>
+                </div>
+                <div class="card project-card">
+                    <h3>No Spend Today (iOS)</h3>
+                    <p>Personal finance habit-tracking app.</p>
+                    <a href="https://apps.apple.com/us/app/no-spend-today/id6757360760" target="_blank" rel="noopener">View on App Store</a>
+                </div>
+                <div class="card project-card">
+                    <h3>Impulse – Control Yourself (iOS)</h3>
+                    <p>Self-control helper app designed to build better habits.</p>
+                    <a href="https://apps.apple.com/us/app/impulse-controll-your-self/id6757433395" target="_blank" rel="noopener">View on App Store</a>
+                </div>
+                <div class="card project-card">
+                    <h3>Product Page Analyzer API</h3>
+                    <p>API for analyzing product pages, published on RapidAPI.</p>
+                    <a href="https://rapidapi.com/danylokv/api/product-page-analyzer-api" target="_blank" rel="noopener">View API</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="openwork" class="reveal-on-scroll">
+            <h2 class="section-title">Open To Work</h2>
+            <div class="openwork-grid">
+                <div class="card">
+                    <p><strong>Role & Availability</strong></p>
+                    <ul style="margin:0; padding-left: 18px; color: var(--muted); line-height: 1.6;">
+                        <li>Junior Software Developer (iOS / Web / Games)</li>
+                        <li>Zollikon, Switzerland (open to remote)</li>
+                        <li>Paid part-time / internship / small tasks</li>
+                        <li>Availability: 2–5 hours/day (more on weekends)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p><strong>Skills</strong></p>
+                    <ul style="margin:0; padding-left: 18px; color: var(--muted); line-height: 1.6;">
+                        <li>SwiftUI (iOS), HTML, CSS, Python</li>
+                        <li>C++ (currently studying)</li>
+                        <li>Unity (2D/3D), Firebase, basic Databases</li>
+                        <li>REST APIs, Git & GitHub</li>
+                        <li>Static sites, landing pages, portfolios</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p><strong>Highlights</strong></p>
+                    <ul style="margin:0; padding-left: 18px; color: var(--muted); line-height: 1.6;">
+                        <li>25th place out of 930 in international hackathon (prize‑winning)</li>
+                        <li>Multiple iOS apps published to the App Store</li>
+                        <li>Game jam participation: shipped complete 2D game</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <p><strong>Contact</strong></p>
+                    <p>
+                        <a class="openwork-cta" href="https://mail.google.com/mail/?view=cm&fs=1&to=danylokv@gmail.com&su=Hello%20Danylo&body=Hi%20Danylo,%20">Email</a> ·
+                        <a class="openwork-cta copy-email" href="#">Copy email</a> ·
+                        <a class="openwork-cta" href="https://danylokv.pages.dev" target="_blank" rel="noopener">Portfolio</a> ·
+                        <a class="openwork-cta" href="https://github.com/danylokv-lang" target="_blank" rel="noopener">GitHub</a> ·
+                        <a class="openwork-cta" href="https://www.linkedin.com/in/danylo-kovalenko-5606322b8/" target="_blank" rel="noopener">LinkedIn</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mystory" class="reveal-on-scroll">
+            <h2 class="section-title">My Story</h2>
+            <details class="story" aria-label="Expand to read My Story">
+                <summary>Expand to read</summary>
+                <div class="story-content">
+                    <h3>Early Years</h3>
+                    <p>I was born in Cherkasy, Ukraine, and at the age of three spent a year living in New York. Later my family moved to Lviv, where I attended kindergarten and my first school — Lyceum №28 of the Lviv City Council.</p>
+                    <p>That’s where my passion for technology began. Even in primary school, I was already fascinated by robotics and trying to build small projects of my own.</p>
+
+                    <h3>First Steps Into Programming</h3>
+                    <p>After 4th grade I switched schools because my family was preparing to move to London, and distance learning at the Lyceum wasn’t possible. In my new school I started taking basic programming courses — mostly simple things like Scratch.</p>
+                    <p>Once in London, I finally began learning real programming. I started with Python, writing small scripts and experimenting. I dreamed of creating my own game, so I spent many hours in Unity watching tutorials and trying to build something meaningful. Most attempts failed, but they pushed me to keep learning.</p>
+
+                    <h3>New Country, New Focus</h3>
+                    <p>Eventually, after many unsuccessful tries, I paused game development to focus on school. Later, when I moved to Switzerland at the end of my first Sek, I tried web design for a while, but eventually returned to programming — this time more seriously.</p>
+                    <p>One of my first projects was a simple text-based Python game. From there, everything changed. I dove deeper into development, spending hours in Unity. This time things started to work: instead of just a rolling cube, I created a small game with a quest system, character movement, double-jump, and dash mechanics. I built several more prototypes, each one more complex than the previous.</p>
+
+                    <h3>Game Jams and Team Projects</h3>
+                    <p>During my studies at EFZ – Wiss, I discovered game jams. I joined one and spent almost two days with almost no sleep creating a complete game, including cutscenes. It was my first fully-finished game experience and it gave me a massive confidence boost.</p>
+                    <p>After that, I gathered a small team to work on a game with a unique mechanic — switching between different time periods within the same location. Unfortunately, the team wasn’t as invested as I was, so we eventually went our separate ways. But I kept building on my own.</p>
+
+                    <h3>Expanding Into Web & Software Development</h3>
+                    <p>Over time I moved from just game development to web development and building software applications. I experimented with different service ideas, tried many small projects, and eventually created the ones you can see here on this website.</p>
+                    <p>I also participated in a hackathon and placed 56th out of 903 with a web-based project — a result I’m proud of.</p>
+
+                    <h3>Today</h3>
+                    <p>At the moment of writing this, I’m working on improving my desktop app for file cleaning, which I’m also preparing for a hackathon submission.</p>
+                    <p>I’m especially motivated to get into iOS development — I’ve built apps before, though they weren’t successful. Now I have two strong ideas that I’m excited to turn into real applications.</p>
+                    <p>I really hope that by the time you read this, those projects will already be here on my website — because that will mean I managed to bring them to life.</p>
+                </div>
+            </details>
+        </section>
+
+        
+
+        <section id="mission" class="reveal-on-scroll">
+            <h2 class="section-title">Mission Control</h2>
+            <div class="mission-grid">
+                <div class="card">
+                    <div class="stat" id="upcoming-countdown">00d 00h 00m</div>
+                    <div class="stat-label">Next Birthday Orbit</div>
+                    <p>
+                        The countdown to my next solar return keeps me mindful of how much can be built in a single year.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="stat" id="live-time">00:00:00</div>
+                    <div class="stat-label">Live Cosmic Time</div>
+                    <p>
+                        Real-time clock synced to your system, because iteration never sleeps and neither does curiosity.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="stat">8</div>
+                    <div class="stat-label">Shipped Projekts</div>
+                    <p>
+                        Each release taught me more about reliability, user trust, and how to align a product with its audience.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="stat">→</div>
+                    <div class="stat-label">Open To Work</div>
+                    <p>
+                        I’m currently seeking opportunities to join a team and grow as a developer. If you’re hiring, let’s talk.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        Crafted in a monochrome orbit. Stay curious.
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">Email copied: danylokv@gmail.com</div>
+    <button id="backtotop" aria-label="Back to top" title="Back to top">↑</button>
+
+    <script>
+        const introOverlay = document.getElementById("intro-overlay");
+        const cosmicBackground = document.getElementById("cosmic-background");
+        const introTextEl = document.querySelector(".intro-text");
+        const welcomeMessage = "Welcome";
+        const typingSpeed = 80;
+        const deletingSpeed = 45;
+
+        function playWelcomeAnimation() {
+            let index = 0;
+            let deleting = false;
+
+            function typeLoop() {
+                if (!deleting && index <= welcomeMessage.length) {
+                    introTextEl.textContent = welcomeMessage.slice(0, index);
+                    index += 1;
+                    setTimeout(typeLoop, typingSpeed);
+                } else if (!deleting) {
+                    deleting = true;
+                    setTimeout(typeLoop, 320);
+                } else if (deleting && index >= 0) {
+                    introTextEl.textContent = welcomeMessage.slice(0, index);
+                    index -= 1;
+                    setTimeout(typeLoop, deletingSpeed);
+                } else {
+                    introOverlay.classList.add("fade-out");
+                }
+            }
+
+            typeLoop();
+        }
+
+        introOverlay.addEventListener("transitionend", () => {
+            if (introOverlay.classList.contains("fade-out")) {
+                introOverlay.style.display = "none";
+            }
+        });
+
+        playWelcomeAnimation();
+
+        const ageElement = document.getElementById("age");
+        const birthDate = new Date("2010-03-16T00:00:00");
+
+        function updateAge() {
+            const now = new Date();
+            let age = now.getFullYear() - birthDate.getFullYear();
+            const month = now.getMonth() - birthDate.getMonth();
+            if (month < 0 || (month === 0 && now.getDate() < birthDate.getDate())) {
+                age -= 1;
+            }
+            ageElement.textContent = age;
+        }
+
+        updateAge();
+        setInterval(updateAge, 60 * 60 * 1000);
+
+        const countdownEl = document.getElementById("upcoming-countdown");
+        function updateCountdown() {
+            const now = new Date();
+            let nextBirthday = new Date(now.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+            if (nextBirthday <= now) {
+                nextBirthday = new Date(now.getFullYear() + 1, birthDate.getMonth(), birthDate.getDate());
+            }
+            const diff = nextBirthday - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            countdownEl.textContent = `${String(days).padStart(2, "0")}d ${String(hours).padStart(2, "0")}h ${String(minutes).padStart(2, "0")}m`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 60 * 1000);
+
+        const liveTimeEl = document.getElementById("live-time");
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, "0");
+            const minutes = String(now.getMinutes()).padStart(2, "0");
+            const seconds = String(now.getSeconds()).padStart(2, "0");
+            liveTimeEl.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        const observers = document.querySelectorAll(".reveal-on-scroll");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observers.forEach((section) => observer.observe(section));
+
+        // Observatory interactions
+        // Observatory interactions removed
+
+        const recentSpawns = {
+            meteor: { side: null, top: null },
+            comet: { side: null, top: null }
+        };
+
+        function spawnMeteor() {
+            if (!cosmicBackground) {
+                return;
+            }
+
+            const meteor = document.createElement("div");
+            meteor.className = "meteor";
+            const fromLeft = Math.random() > 0.5;
+            let startY = Math.random() * 40 - 8; // -8vh to 32vh
+            const horizontalSpan = 60 + Math.random() * 28; // 60vw to 88vw travel
+            const verticalSpan = 70 + Math.random() * 32; // 70vh to 102vh travel
+            const duration = 2.2 + Math.random() * 2.2; // 2.2s to 4.4s (faster)
+            const rotation = fromLeft ? 18 + Math.random() * 12 : -18 - Math.random() * 12;
+            const length = 90 + Math.random() * 70;
+
+            // avoid consecutive same-side near-identical Y
+            if (recentSpawns.meteor.side === (fromLeft ? 'left' : 'right') && recentSpawns.meteor.top != null) {
+                if (Math.abs(startY - recentSpawns.meteor.top) < 12) {
+                    startY = (startY + 20 + Math.random() * 40) % 40 - 8; // shift within range
+                }
+            }
+
+            meteor.style.setProperty("--meteor-start-x", fromLeft ? "-14vw" : "114vw");
+            meteor.style.setProperty("--meteor-start-y", `${startY}vh`);
+            meteor.style.setProperty("--meteor-shift-x", `${fromLeft ? horizontalSpan : -horizontalSpan}vw`);
+            meteor.style.setProperty("--meteor-shift-y", `${verticalSpan}vh`);
+            meteor.style.setProperty("--meteor-duration", `${duration}s`);
+            meteor.style.setProperty("--meteor-rotation", `${rotation}deg`);
+            meteor.style.setProperty("--meteor-length", `${length}px`);
+
+            cosmicBackground.appendChild(meteor);
+            const cleanup = () => meteor.remove();
+            meteor.addEventListener("animationend", cleanup);
+            setTimeout(cleanup, (duration + 0.4) * 1000);
+
+            recentSpawns.meteor.side = fromLeft ? 'left' : 'right';
+            recentSpawns.meteor.top = startY;
+        }
+
+        function scheduleMeteor() {
+            spawnMeteor();
+            const nextDelay = 9000 + Math.random() * 9000; // 9s - 18s
+            setTimeout(scheduleMeteor, nextDelay);
+        }
+
+        setTimeout(scheduleMeteor, 5200);
+
+        // spawnComet removed
+
+        // comet scheduler removed
+
+        // Per-letter animation helpers
+        function applyTextAnimations() {
+            // Reveal paragraph smoothly when scrolled into view
+            const about = document.getElementById('about-intro');
+            if (about) {
+                const io = new IntersectionObserver((entries)=>{
+                    entries.forEach(e=>{
+                        if(e.isIntersecting){
+                            about.classList.add('visible');
+                            io.unobserve(about);
+                        }
+                    })
+                }, {threshold: 0.2});
+                io.observe(about);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(applyTextAnimations, 400);
+        });
+
+        // Email action handler with copy + Gmail compose fallback
+        function showToast() {
+            const t = document.getElementById('toast');
+            if (!t) return;
+            t.classList.add('show');
+            clearTimeout(showToast._timer);
+            showToast._timer = setTimeout(()=> t.classList.remove('show'), 1800);
+        }
+
+        function openEmail() {
+            const email = 'danylokv@gmail.com';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(showToast).catch(()=>{});
+            }
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent('Hello Danylo')}`;
+            window.open(gmailUrl, '_blank', 'noopener');
+        }
+
+        document.addEventListener('click', (e)=>{
+            const a = e.target.closest('.email-action');
+            if (a) {
+                e.preventDefault();
+                openEmail();
+            }
+            const c = e.target.closest('.copy-email');
+            if (c) {
+                e.preventDefault();
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText('danylokv@gmail.com').then(showToast).catch(()=>{});
+                } else { showToast(); }
+            }
+        });
+
+        // Back to top visibility and smooth scroll
+        const backBtn = document.getElementById('backtotop');
+        if (backBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 420) backBtn.classList.add('show'); else backBtn.classList.remove('show');
+            });
+            backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+
+        // Reduced motion / tab visibility handling for starfield
+        let reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let enableBursts = !reducedMotion;
+        if (window.matchMedia) {
+            const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+            mq.addEventListener ? mq.addEventListener('change', (e)=>{ reducedMotion = e.matches; enableBursts = !reducedMotion; }) : mq.addListener && mq.addListener((e)=>{ reducedMotion = e.matches; enableBursts = !reducedMotion; });
+        }
+        document.addEventListener('visibilitychange', ()=>{ enableBursts = !document.hidden && !reducedMotion; });
+
+        // Simple canvas starfield with subtle parallax drift
+        const canvas = document.getElementById("starfield");
+        const ctx = canvas.getContext("2d");
+        let stars = [];
+        let width, height;
+        let twinkleTimer = 0;
+        let nextTwinkleIn = 1800 + Math.random() * 3600; // 1.8–5.4s
+        const burstColor = "#ffa94d"; // vivid orange
+        const burstCountPerEvent = () => (4 + Math.floor(Math.random() * 4)); // 4-7 stars
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            stars = Array.from({ length: Math.floor(width * 0.4) }, () => createStar());
+        }
+
+        function createStar() {
+            return {
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 1.6 + 0.6, // larger baseline size (0.6 - 2.2)
+                speed: reducedMotion ? 0.02 : (Math.random() * 0.35 + 0.05),
+                alpha: Math.random() * 0.4 + 0.5, // baseline always visible (0.5-0.9)
+                twinkle: reducedMotion ? 0 : (Math.random() * 0.02 + 0.005),
+                direction: Math.random() > 0.5 ? 1 : -1,
+                burst: 0 // frames of bright burst remaining
+            };
+        }
+
+        function drawStarfield() {
+            ctx.fillStyle = "rgba(5, 6, 10, 0.5)";
+            ctx.fillRect(0, 0, width, height);
+            ctx.save();
+            // occasional bright twinkle
+            twinkleTimer += 16.6; // approximate ms per frame at ~60fps
+            if (enableBursts && twinkleTimer >= nextTwinkleIn && stars.length > 0) {
+                const bursts = burstCountPerEvent();
+                for (let b = 0; b < bursts; b++) {
+                    const i = Math.floor(Math.random() * stars.length);
+                    stars[i].burst = 90; // ~1.5s stronger burst
+                    stars[i].radius = Math.min(stars[i].radius + (1.0 + Math.random() * 0.9), 4.4);
+                    stars[i].alpha = Math.min(1.0, stars[i].alpha + 0.14);
+                }
+                nextTwinkleIn = 2200 + Math.random() * 4200; // 2.2–6.4s between burst events
+                twinkleTimer = 0;
+            }
+
+            stars.forEach((star) => {
+                star.y += star.speed;
+                if (star.y > height) {
+                    star.y = -star.radius;
+                    star.x = Math.random() * width;
+                }
+                star.alpha += star.twinkle * star.direction;
+                if (star.alpha <= 0.45 || star.alpha >= 0.95) {
+                    star.direction *= -1;
+                }
+                // handle burst coloring and decay
+                // render star; during burst use vivid orange and higher alpha
+                const currentAlpha = star.burst > 0 ? Math.min(1, star.alpha + 0.18) : star.alpha;
+                ctx.globalAlpha = currentAlpha;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = star.burst > 0 ? burstColor : "white";
+                ctx.fill();
+                // soft outer glow during burst
+                if (star.burst > 0) {
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius * 1.8, 0, Math.PI * 2);
+                    ctx.globalAlpha = Math.min(0.28, currentAlpha * 0.28);
+                    ctx.fillStyle = burstColor;
+                    ctx.fill();
+                }
+                if (star.burst > 0) {
+                    star.burst -= 1;
+                }
+                // relax radius back down slowly
+                star.radius = Math.max(star.radius - 0.02, 0.6);
+            });
+            ctx.restore();
+            requestAnimationFrame(drawStarfield);
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+        drawStarfield();
+    </script>
+</body>
+</html>
